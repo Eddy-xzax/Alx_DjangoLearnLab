@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect
 from .models import Book
 from django.views.generic.detail import DetailView
@@ -32,3 +33,17 @@ def register(request):
             login(request, user)
             return redirect('login')  # After registration, go to login
     return render(request, 'relationship_app/register.html', {'form': form})
+@permission_required('relationship_app.add_book')
+def add_book(request):
+    # form handling logic here
+    return render(request, 'add_book.html')
+
+@permission_required('relationship_app.change_book')
+def edit_book(request, book_id):
+    # edit logic here
+    return render(request, 'edit_book.html')
+
+@permission_required('relationship_app.delete_book')
+def delete_book(request, book_id):
+    # delete logic here
+    return render(request, 'delete_book.html')
