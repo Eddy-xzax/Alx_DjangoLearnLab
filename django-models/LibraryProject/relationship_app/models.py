@@ -38,3 +38,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.role}'
+class Meta:
+    permissions = [
+	("can_publish_book", "Can publish book"),
+	("can_mark_featured", "Can mark book as featured"),
+]
