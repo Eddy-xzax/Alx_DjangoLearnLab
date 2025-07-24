@@ -42,4 +42,7 @@ class Meta:
     permissions = [
 	("can_publish_book", "Can publish book"),
 	("can_mark_featured", "Can mark book as featured"),
+	("can_add_book", "Can add book"),
+	("can_change_book", "Can change book"),
+	("can_delete_book", "Can delete book"),
 ]
