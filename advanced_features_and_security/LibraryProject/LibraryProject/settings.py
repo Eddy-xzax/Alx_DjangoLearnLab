@@ -141,7 +141,7 @@ CSRF_COOKIE_SECURE = True
 # Ensures session cookies are only sent over HTTPS
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
-
+SECURE_HSTS_SECONDS = 31536000
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
