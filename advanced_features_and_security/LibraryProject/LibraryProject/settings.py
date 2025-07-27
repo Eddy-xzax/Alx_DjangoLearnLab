@@ -126,7 +126,20 @@ MEDIA_URL = '/media/'
 import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Prevents the browser from attempting to guess the content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# Enables the browser's XSS filtering and blocks the response if an attack is detected
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents your site from being rendered in a <frame>, mitigating clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Ensures CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Ensures session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
