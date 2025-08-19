@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p>{{ object.content }}</p>
+  <p><small>Published: {{ object.published_date|date:"M d, Y H:i" }}</small></p>
+  <p><small>Author: {{ object.author }}</small></p>
+
+  <a href="{% url 'post_update' object.pk %}">✏ Edit</a> | 
+  <a href="{% url 'post_delete' object.pk %}">🗑 Delete</a> | 
+  <a href="{% url 'post_list' %}">⬅ Back</a>
+{% endblock %}

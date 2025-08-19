@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Posts</h1>
+  <a href="{% url 'post_create' %}">+ New Post</a>
+  <ul>
+    {% for post in object_list %}
+      <li>
+        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> 
+        ({{ post.published_date|date:"M d, Y" }}) 
+      </li>
+    {% empty %}
+      <li>No posts yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
