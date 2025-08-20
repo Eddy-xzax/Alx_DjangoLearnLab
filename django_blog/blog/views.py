@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from .models import Post, Comment
 
 # List all posts
 class PostListView(ListView):
@@ -63,3 +64,36 @@ def profile(request):
         return redirect("profile")
 
     return render(request, "profile.html", {"profile": profile})
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ["content"]   # only allow content, post & author will be set automatically
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])  # get related post
+        return super().form_valid(form)
+
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    fields = ["content"]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        return reverse_lazy("post-detail", kwargs={"pk": self.object.post.pk})
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
