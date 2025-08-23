@@ -9,7 +9,15 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import Post, Like
 from notifications.models import Notification
+from rest_framework import generics
+from .models import Post
 
+class PostDetailView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return generics.get_object_or_404(Post, pk=pk)
 
 class LikePostView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
